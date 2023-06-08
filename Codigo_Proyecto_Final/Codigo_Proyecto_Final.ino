@@ -134,8 +134,8 @@ void setup() {
   tiraDer.begin();
   tiraIzq.begin();
 
-  tiraDer.fill(vacioDer, 0, 8);
-  tiraIzq.fill(vacioIzq, 0, 8);
+  tiraDer.fill(tiraDer.Color(0, 0, 0), 0, 8);
+  tiraIzq.fill(tiraIzq.Color(0, 0, 0), 0, 8);
 
   ledcSetup(BUZZER_CHANNEL, 2000, 8); // Configurar el canal PWM
   ledcAttachPin(BUZZER_PIN, BUZZER_CHANNEL); // Asociar el pin al canal PWM
@@ -407,12 +407,12 @@ void maquinaDeEstadosAnimacionIzquierda() { //Función que contiene las dos anim
     case CAMBIO_ROJO_IZQ_1:
 
       ledcWrite(BUZZER_CHANNEL, 128);
-      
+
       Serial.println("NARANJA");
 
       tiraIzq.show();
       tiraIzq.setBrightness(100); // brillo global para toda la tira
-      tiraIzq.fill(naranjaIzq, 0, 8);
+      tiraIzq.fill(tiraIzq.Color(255, 140, 0), 0, 8);
 
       if ((milisActualesIzq - milisPreviosIzq) >= INTERVALO_DE_ANIMACION) {
 
@@ -521,7 +521,7 @@ void maquinaDeEstadosAnimacionIzquierda() { //Función que contiene las dos anim
 
         flagIzq = 0;
         Serial.println("VACIO");
-        tiraIzq.clear();
+        tiraIzq.fill(tiraIzq.Color(0, 0, 0), 0, 8);
         milisPreviosIzq = milisActualesIzq;
         estadoMaquinaAnimacionIzq = 0;
 
@@ -541,20 +541,20 @@ void maquinaDeEstadosAnimacionDerecha () { //Funcion que contiene las dos animac
 
   tiraDer.show();
   tiraDer.setBrightness(100); // brillo global para toda la tira
-  tiraDer.fill(naranjaDer, 0, 8);
+  tiraDer.fill(tiraDer.Color(255, 140, 0), 0, 8);
 
   if (flagDer == 0) {
 
-    flagDer = 1;
-    milisActualesDer = 0;
+  flagDer = 1;
+  milisActualesDer = 0;
 
-  }
+}
 
-  switch (estadoMaquinaAnimacionDer) {
+switch (estadoMaquinaAnimacionDer) {
 
-    case CAMBIO_ROJO_DER_1:
+  case CAMBIO_ROJO_DER_1:
 
-      if ((milisActualesDer - milisPreviosDer) >= INTERVALO_DE_ANIMACION) {
+    if ((milisActualesDer - milisPreviosDer) >= INTERVALO_DE_ANIMACION) {
 
         estadoRojoTitileoDer ();
 
@@ -662,7 +662,7 @@ void maquinaDeEstadosAnimacionDerecha () { //Funcion que contiene las dos animac
 
 
         flagDer = 0;
-        tiraDer.fill(0, 8);
+        tiraDer.fill(tiraDer.Color(0, 0, 0), 0, 8);
         milisPreviosDer = milisActualesDer;
         estadoMaquinaAnimacionDer = 0;
 
