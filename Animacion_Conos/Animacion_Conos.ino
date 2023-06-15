@@ -20,9 +20,9 @@ void setup() {
   tft.fillScreen(TFT_BLACK); //Seteo color del fondo
 
   printeoAuto();
- // estadoRojoTitileoIzq ();
- //estadoRojoTitileoDer ();
-  animacion();
+  // estadoRojoTitileoIzq ();
+  //estadoRojoTitileoDer ();
+  animacionLinea();
 }
 
 void loop() {
@@ -34,72 +34,82 @@ void printeoAuto() {
 
   tft.fillScreen(TFT_BLACK);
 
-  tft.fillRoundRect(60, 40, 120, 210, 30, TFT_SILVER); //Silueta del auto
-  tft.drawRoundRect(60, 40, 120, 210, 30, TFT_BLACK);
+  tft.fillRoundRect(60, 20, 120, 210, 30, TFT_SILVER); //Silueta del auto
+  tft.drawRoundRect(60, 20, 120, 210, 30, TFT_BLACK);
 
-  tft.drawLine(80, 60, 160, 60, TFT_BLACK); //Línea horizontal superior del CAPÓ
-  tft.drawLine(70, 90, 170, 90, TFT_BLACK); //Línea horizontal inferior
-  tft.drawLine(80, 60, 70, 90, TFT_BLACK); //Diagonal izquierda
-  tft.drawLine(160, 60, 170, 90, TFT_BLACK); //Diagonal derecha
+  tft.drawLine(80, 40, 160, 40, TFT_BLACK); //Línea horizontal superior del CAPÓ
+  tft.drawLine(70, 70, 170, 70, TFT_BLACK); //Línea horizontal inferior
+  tft.drawLine(80, 40, 70, 70, TFT_BLACK); //Diagonal izquierda
+  tft.drawLine(160, 40, 170, 70, TFT_BLACK); //Diagonal derecha
 
-  tft.fillTriangle(75, 100, 165, 100, 80, 125, TFT_SKYBLUE);
-  tft.fillTriangle(165, 100, 80, 125, 160, 125, TFT_SKYBLUE);
+  tft.fillTriangle(75, 80, 165, 80, 80, 105, TFT_SKYBLUE);
+  tft.fillTriangle(165, 80, 80, 105, 160, 105, TFT_SKYBLUE);
 
-  tft.drawLine(75, 100, 165, 100, TFT_BLACK); //Línea horizontal superior del VIDRIO DELANTERO
-  tft.drawLine(80, 125, 160, 125, TFT_BLACK); //Línea horizontal inferior
-  tft.drawLine(75, 100, 80, 125, TFT_BLACK); //Diagonal izquierda
-  tft.drawLine(165, 100, 160, 125, TFT_BLACK); //Diagonal derecha
+  tft.drawLine(75, 80, 165, 80, TFT_BLACK); //Línea horizontal superior del VIDRIO DELANTERO
+  tft.drawLine(80, 105, 160, 105, TFT_BLACK); //Línea horizontal inferior
+  tft.drawLine(75, 80, 80, 105, TFT_BLACK); //Diagonal izquierda
+  tft.drawLine(165, 80, 160, 105, TFT_BLACK); //Diagonal derecha
 
-  tft.fillTriangle(80, 230, 85, 210, 160, 230, TFT_SKYBLUE);
-  tft.fillTriangle(85, 210, 160, 230, 155, 210, TFT_SKYBLUE);
+  tft.fillTriangle(80, 210, 85, 190, 160, 210, TFT_SKYBLUE);
+  tft.fillTriangle(85, 190, 160, 210, 155, 190, TFT_SKYBLUE);
 
-  tft.drawLine(80, 230, 160, 230, TFT_BLACK); //Línea horizontal inferior del VIDRIO TRASERO
-  tft.drawLine(85, 210, 155, 210, TFT_BLACK); //Línea horizontal superior
-  tft.drawLine(80, 230, 85, 210, TFT_BLACK); //Diagonal izquierda
-  tft.drawLine(160, 230, 155, 210, TFT_BLACK); //Diagonal derecha
 
-  tft.fillTriangle(172, 125, 160, 195, 172, 210, TFT_SKYBLUE);
-  tft.fillTriangle(172, 125, 160, 195, 160, 140, TFT_SKYBLUE);
 
-  tft.drawLine(172, 125, 172, 210, TFT_BLACK); //Línea vertical externa VIDRIO DERECHO
-  tft.drawLine(160, 140, 160, 195, TFT_BLACK); //Linea vertical interna
-  tft.drawLine(172, 125, 160, 140, TFT_BLACK); //Diagonal superior
-  tft.drawLine(172, 210, 160, 195, TFT_BLACK); //Diagonal inferior
+  //tft.fillTriangle(80, 230, 85, 210, 160, 230, TFT_SKYBLUE);
+  //tft.fillTriangle(85, 210, 160, 230, 155, 210, TFT_SKYBLUE);
 
-  tft.fillTriangle(68, 125, 80, 140, 68, 210, TFT_SKYBLUE);
-  tft.fillTriangle(80, 140, 68, 210, 80, 195, TFT_SKYBLUE);
 
-  tft.drawLine(68, 125, 68, 210, TFT_BLACK); //Linea vertical externa VIDRIO IZQUIERDO
-  tft.drawLine(80, 140, 80, 195, TFT_BLACK); //Linea vertical interna
-  tft.drawLine(68, 125, 80, 140, TFT_BLACK); //Diagonal superior
-  tft.drawLine(68, 210, 80, 195, TFT_BLACK); //Diagonal inferior
 
-  tft.fillTriangle(87, 140, 92, 208, 97, 210, TFT_BLACK); //PORTAEQUIPAJE IZQUIERDA
-  tft.fillTriangle(153, 140, 148, 208, 143, 210, TFT_BLACK); //PORTAEQUIPAJE DERECHA
 
-  tft.fillEllipse(88, 243, 15, 5, TFT_RED2); //LUCES TRASERAS IZQUIERDA
-  tft.fillTriangle(85, 249, 103, 249, 103, 243, TFT_RED2);
-  tft.drawPixel(81, 248, TFT_RED2);
 
-  tft.fillEllipse(151, 243, 15, 5, TFT_RED2); //LUCES TRASERAS DERECHA
-  tft.fillTriangle(154, 249, 136, 249, 136, 243, TFT_RED2);
-  tft.drawPixel(158, 248, TFT_RED2);
 
-  tft.fillEllipse(55, 105, 14, 5, TFT_SILVER); //ESPEJO RETROVISOR IZQUIERDA
-  tft.fillTriangle(40, 103, 40, 105, 70, 105, TFT_SILVER);
+  tft.drawLine(80, 210, 160, 210, TFT_BLACK); //Línea horizontal inferior del VIDRIO TRASERO
+  tft.drawLine(85, 190, 155, 190, TFT_BLACK); //Línea horizontal superior
+  tft.drawLine(80, 210, 85, 190, TFT_BLACK); //Diagonal izquierda
+  tft.drawLine(160, 210, 155, 190, TFT_BLACK); //Diagonal derecha
 
-  tft.fillEllipse(185, 105, 14, 5, TFT_SILVER); //ESPEJO RETROVISOR DERECHA
-  tft.fillTriangle(200, 100, 197, 105, 170, 105, TFT_SILVER);
+  tft.fillTriangle(172, 105, 160, 175, 172, 190, TFT_SKYBLUE);
+  tft.fillTriangle(172, 105, 160, 175, 160, 120, TFT_SKYBLUE);
 
-  tft.fillRect(57, 75, 3, 23, TFT_LIGHTGRAY); //RUEDA delantera izquierda
-  tft.fillRect(57, 200, 3, 25, TFT_LIGHTGRAY); //Rueda trasera izquierda
-  tft.fillRect(180, 75, 3, 23, TFT_LIGHTGRAY); //Rueda delantera derecha
-  tft.fillRect(180, 200, 3, 25, TFT_LIGHTGRAY); //Rueda trasera derecha
+  tft.drawLine(172, 105, 172, 190, TFT_BLACK); //Línea vertical externa VIDRIO DERECHO
+  tft.drawLine(160, 120, 160, 175, TFT_BLACK); //Linea vertical interna
+  tft.drawLine(172, 105, 160, 120, TFT_BLACK); //Diagonal superior
+  tft.drawLine(172, 190, 160, 175, TFT_BLACK); //Diagonal inferior
 
-  tft.setTextColor(TFT_GREEN2); //Power ON
-  tft.setTextSize(3);
-  tft.drawString("Power", 50, 5, 1);
-  tft.drawString("ON", 150, 5, 1);
+  tft.fillTriangle(68, 105, 80, 120, 68, 190, TFT_SKYBLUE);
+  tft.fillTriangle(80, 120, 68, 190, 80, 175, TFT_SKYBLUE);
+
+  tft.drawLine(68, 105, 68, 190, TFT_BLACK); //Linea vertical externa VIDRIO IZQUIERDO
+  tft.drawLine(80, 120, 80, 175, TFT_BLACK); //Linea vertical interna
+  tft.drawLine(68, 105, 80, 120, TFT_BLACK); //Diagonal superior
+  tft.drawLine(68, 190, 80, 175, TFT_BLACK); //Diagonal inferior
+
+  tft.fillTriangle(87, 120, 92, 188, 97, 190, TFT_BLACK); //PORTAEQUIPAJE IZQUIERDA
+  tft.fillTriangle(153, 120, 148, 188, 143, 190, TFT_BLACK); //PORTAEQUIPAJE DERECHA
+
+  tft.fillEllipse(88, 223, 15, 5, TFT_RED2); //LUCES TRASERAS IZQUIERDA
+  tft.fillTriangle(85, 229, 103, 229, 103, 223, TFT_RED2);
+  tft.drawPixel(81, 228, TFT_RED2);
+
+  tft.fillEllipse(151, 223, 15, 5, TFT_RED2); //LUCES TRASERAS DERECHA
+  tft.fillTriangle(154, 229, 136, 229, 136, 223, TFT_RED2);
+  tft.drawPixel(158, 228, TFT_RED2);
+
+  tft.fillEllipse(55, 85, 14, 5, TFT_SILVER); //ESPEJO RETROVISOR IZQUIERDA
+  tft.fillTriangle(40, 83, 40, 85, 70, 85, TFT_SILVER);
+
+  tft.fillEllipse(185, 85, 14, 5, TFT_SILVER); //ESPEJO RETROVISOR DERECHA
+  tft.fillTriangle(200, 80, 197, 85, 170, 85, TFT_SILVER);
+
+  tft.fillRect(57, 55, 3, 23, TFT_LIGHTGRAY); //RUEDA delantera izquierda
+  tft.fillRect(57, 180, 3, 25, TFT_LIGHTGRAY); //Rueda trasera izquierda
+  tft.fillRect(180, 55, 3, 23, TFT_LIGHTGRAY); //Rueda delantera derecha
+  tft.fillRect(180, 180, 3, 25, TFT_LIGHTGRAY); //Rueda trasera derecha
+
+  //tft.setTextColor(TFT_GREEN2); //Power ON
+  //tft.setTextSize(3);
+  //tft.drawString("Power", 50, 5, 1);
+  //tft.drawString("ON", 150, 5, 1);
 
 }
 
@@ -123,10 +133,31 @@ void estadoRojoTitileoDer () { //Funcion para cambiar el color a rojo del indica
 
 void animacion() {
 
-tft.fillTriangle(75, 250, 0, 320, 60, 320, TFT_WHITE); 
-tft.fillTriangle(70, 240, 0, 320, 0, 270, TFT_WHITE); 
-tft.fillTriangle(75, 250, 70, 240, 0, 320, TFT_WHITE); 
+  tft.fillTriangle(75, 230, 0, 320, 60, 320, TFT_WHITE);
+  tft.fillTriangle(75, 230, 0, 320, 0, 245, TFT_WHITE);
+  tft.fillTriangle(60, 207, 75, 230, 0, 245, TFT_WHITE);
 
-tft.fillRect(50, 26, 100, 13, TFT_WHITE);
+  tft.fillTriangle(60, 207, 75, 230, 33, 224, TFT_RED2);//Rojo der
+  tft.fillTriangle(72, 250, 75, 230, 33, 224, TFT_RED2);
+
+  tft.fillTriangle(0, 244, 72, 250, 33, 224, TFT_ORANGE);
+  tft.fillTriangle(0, 244, 72, 250, 65, 290, TFT_ORANGE);
+
+  tft.fillTriangle(0, 244, 0, 320, 65, 290, TFT_YELLOW2);
+  tft.fillTriangle(60, 320, 0, 320, 65, 290, TFT_YELLOW2);
+
+
+}
+
+void animacionLinea() {
+
+  tft.drawLine(60, 207, 75, 230, TFT_WHITE); //linea superior cono izquierda
+  tft.drawLine(60, 207, 0, 244, TFT_WHITE); //diagonal izquierda
+  tft.drawLine(75, 230, 60, 320, TFT_WHITE); //diagonal derecha
+  
+  tft.drawLine(33, 224, 72, 250, TFT_WHITE); //divisor rojo naranja
+  
+  tft.drawLine(0, 244, 65, 290, TFT_WHITE); //divisor rojo naranja
+
 
 }
