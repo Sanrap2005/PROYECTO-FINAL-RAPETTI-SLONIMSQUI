@@ -80,10 +80,23 @@ unsigned long milisPreviosIzq;
 unsigned long milisActualesGeneral;
 unsigned long milisPreviosGeneral;
 
+unsigned long milisActualesBuzzerPrimerUmbral;
+unsigned long milisPreviosBuzzerPrimerUmbral;
+
+unsigned long milisActualesBuzzerSegundoUmbral;
+unsigned long milisPreviosBuzzerSegundoUmbral;
+
+unsigned long milisActualesBuzzerTercerUmbral;
+unsigned long milisPreviosBuzzerTercerUmbral;
 
 int estadoMaquinaGeneral;
 int estadoMaquinaDeteccionDer;
 int estadoMaquinaDeteccionIzq;
+
+int estadoMaquinaBuzzerPrimerUmbral;
+int estadoMaquinaBuzzerSegundoUmbral;
+int estadoMaquinaBuzzerTercerUmbral;
+
 
 int flagAmarilloIzq;
 int flagNaranjaIzq;
@@ -95,6 +108,7 @@ int flagNaranjaDer;
 int flagRojoDer;
 int flagNegroDer;
 
+int prioridad;
 
 void setup() {
 
@@ -105,13 +119,6 @@ void setup() {
 
   pinMode(TRIG_PIN_IZQ, OUTPUT);
   pinMode(ECHO_PIN_IZQ, INPUT);
-
-  microsPreviosDer = 0;
-  microsPreviosIzq = 0;
-
-  milisPreviosGeneral = 0;
-  milisPreviosIzq = 0;
-  milisPreviosDer = 0;
 
   tft.init(); //Funcion de inicializacion de la pantalla
   tft.setRotation(2); //Seteo de la orientación vertical de la pantalla
@@ -137,9 +144,7 @@ void loop() {
   // Serial.println(distanciaCmDer);
 
   // Serial.print("IZQUIERDA: ");
-  Serial.println(distanciaCmIzq);
-
-  milisActualesGeneral = millis(); // Guarda el tiempo en milisegundos desde que se inicio el programa
+  //Serial.println(distanciaCmIzq);
 
   maquinaDeEstadosGeneral ();
 
@@ -149,8 +154,6 @@ void loop() {
 
 
 }
-
-
 
 
 void maquinaDeEstadosDeteccionDerecha () {
@@ -230,6 +233,8 @@ void maquinaDeEstadosDeteccionIzquierda() {
 }
 
 void maquinaDeEstadosGeneral () {
+
+  milisActualesGeneral = millis(); // Guarda el tiempo en milisegundos desde que se inicio el programa
 
 
   switch (estadoMaquinaGeneral) { //Máquina de estados general, que maneja la iniciación de la pantalla
@@ -345,9 +350,7 @@ void maquinaDeEstadosGeneral () {
 
     case COMPARACIONES_DATOS_UMBRAL: //Condiciones para que printee en la pantalla las animaciones de detección
 
-      ledcWrite(BUZZER_CHANNEL, 0);
-
-
+      establecimientoPrioridades();
 
       if (distanciaCmIzq > UMBRAL_DE_DETECCION_PRIMERO && flagNegroIzq == 0) {
 
@@ -367,14 +370,12 @@ void maquinaDeEstadosGeneral () {
       }
 
 
-
       if (distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_SEGUNDO && flagAmarilloIzq == 0) {//41 y 60
 
         estadoAmarilloIzq();
         animacionLineaIzq();
 
         pintarPixelAmarilloIzq();
-
         flagAmarilloIzq = 1;
       }
 
@@ -421,13 +422,6 @@ void maquinaDeEstadosGeneral () {
         flagRojoIzq = 0;
 
       }
-
-
-
-
-
-
-
 
 
       if (distanciaCmDer > UMBRAL_DE_DETECCION_PRIMERO && flagNegroDer == 0) {
@@ -502,6 +496,45 @@ void maquinaDeEstadosGeneral () {
 
       }
 
+      if (prioridad == 0) {
+        if (distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_SEGUNDO) {
+          buzzerPrimerUmbral();
+        }
+
+        if (distanciaCmIzq < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmIzq > UMBRAL_DE_DETECCION_TERCERO) {
+          buzzerSegundoUmbral();
+        }
+        if (distanciaCmIzq < UMBRAL_DE_DETECCION_TERCERO) {
+          ledcWrite(BUZZER_CHANNEL, 128);
+        }
+
+        if (distanciaCmDer < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_SEGUNDO) {
+          buzzerPrimerUmbral();
+        }
+
+        if (distanciaCmDer < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmDer > UMBRAL_DE_DETECCION_TERCERO) {
+          buzzerSegundoUmbral();
+        }
+        if (distanciaCmDer < UMBRAL_DE_DETECCION_TERCERO) {
+          ledcWrite(BUZZER_CHANNEL, 128);
+        }
+      }
+
+      if (prioridad == 1) {
+        ledcWrite(BUZZER_CHANNEL, 128);
+      }
+
+      if (prioridad == 2) {
+        buzzerSegundoUmbral();
+      }
+
+      if (prioridad == 3) {
+        buzzerPrimerUmbral();
+      }
+
+      if (prioridad == 4) {
+        ledcWrite(BUZZER_CHANNEL, 0);
+      }
 
 
       break;
@@ -509,9 +542,6 @@ void maquinaDeEstadosGeneral () {
   }
 
 }
-
-
-
 
 
 
@@ -851,4 +881,169 @@ void estadoNegroDer() {
   tft.fillTriangle(240, 244, 168, 250, 207, 224, TFT_BLACK);
   tft.fillTriangle(240, 244, 168, 250, 175, 290, TFT_BLACK);
 
+}
+
+void buzzerPrimerUmbral() {
+
+  milisActualesBuzzerPrimerUmbral = millis();
+
+  switch (estadoMaquinaBuzzerPrimerUmbral) {
+
+    case 0:
+
+      ledcWrite(BUZZER_CHANNEL, 128);
+
+      if ((milisActualesBuzzerPrimerUmbral - milisPreviosBuzzerPrimerUmbral) > 300) {
+
+        milisPreviosBuzzerPrimerUmbral = milisActualesBuzzerPrimerUmbral;
+        estadoMaquinaBuzzerPrimerUmbral = 1;
+
+      }
+
+      break;
+
+    case 1:
+
+      ledcWrite(BUZZER_CHANNEL, 0);
+
+      if ((milisActualesBuzzerPrimerUmbral - milisPreviosBuzzerPrimerUmbral) > 300) {
+
+        milisPreviosBuzzerPrimerUmbral = milisActualesBuzzerPrimerUmbral;
+        estadoMaquinaBuzzerPrimerUmbral = 0;
+
+      }
+
+      break;
+
+  }
+
+}
+
+void buzzerSegundoUmbral() {
+
+  milisActualesBuzzerSegundoUmbral = millis();
+
+  switch (estadoMaquinaBuzzerSegundoUmbral) {
+
+    case 0:
+
+      ledcWrite(BUZZER_CHANNEL, 128);
+
+      if ((milisActualesBuzzerSegundoUmbral - milisPreviosBuzzerSegundoUmbral) > 150) {
+
+        milisPreviosBuzzerSegundoUmbral = milisActualesBuzzerSegundoUmbral;
+        estadoMaquinaBuzzerSegundoUmbral = 1;
+
+      }
+
+      break;
+
+    case 1:
+
+      ledcWrite(BUZZER_CHANNEL, 0);
+
+      if ((milisActualesBuzzerSegundoUmbral - milisPreviosBuzzerSegundoUmbral) > 150) {
+
+        milisPreviosBuzzerSegundoUmbral = milisActualesBuzzerSegundoUmbral;
+        estadoMaquinaBuzzerSegundoUmbral = 0;
+
+      }
+
+      break;
+
+  }
+
+}
+
+void buzzerTercerUmbral() {
+
+  milisActualesBuzzerTercerUmbral = millis();
+
+  switch (estadoMaquinaBuzzerTercerUmbral) {
+
+    case 0:
+
+      ledcWrite(BUZZER_CHANNEL, 128);
+
+      if ((milisActualesBuzzerTercerUmbral - milisPreviosBuzzerTercerUmbral) > 150) {
+
+        milisPreviosBuzzerTercerUmbral = milisActualesBuzzerTercerUmbral;
+        estadoMaquinaBuzzerTercerUmbral = 1;
+
+      }
+
+      break;
+
+    case 1:
+
+      ledcWrite(BUZZER_CHANNEL, 0);
+
+      if ((milisActualesBuzzerTercerUmbral - milisPreviosBuzzerTercerUmbral) > 150) {
+
+        milisPreviosBuzzerTercerUmbral = milisActualesBuzzerTercerUmbral;
+        estadoMaquinaBuzzerTercerUmbral = 0;
+
+      }
+
+      break;
+
+  }
+
+}
+
+void establecimientoPrioridades() {
+  
+
+  if (distanciaCmIzq < UMBRAL_DE_DETECCION_TERCERO && distanciaCmDer < UMBRAL_DE_DETECCION_TERCERO) {
+    prioridad = 1;
+  }
+
+  if (distanciaCmIzq < UMBRAL_DE_DETECCION_TERCERO && distanciaCmDer < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_SEGUNDO) {
+    prioridad = 1;
+  }
+
+  if (distanciaCmIzq < UMBRAL_DE_DETECCION_TERCERO && distanciaCmDer < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmDer > UMBRAL_DE_DETECCION_TERCERO) {
+    prioridad = 1;
+  }
+
+  if (distanciaCmDer < UMBRAL_DE_DETECCION_TERCERO && distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_SEGUNDO) {
+    prioridad = 1;
+  }
+
+  if (distanciaCmDer < UMBRAL_DE_DETECCION_TERCERO && distanciaCmIzq < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmIzq > UMBRAL_DE_DETECCION_TERCERO) {
+    prioridad = 1;
+  }
+
+
+  if (distanciaCmIzq < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmIzq > UMBRAL_DE_DETECCION_TERCERO && distanciaCmDer < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmDer > UMBRAL_DE_DETECCION_TERCERO) {
+    prioridad = 2;
+  }
+
+  if (distanciaCmIzq < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmIzq > UMBRAL_DE_DETECCION_TERCERO && distanciaCmDer < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_SEGUNDO) {
+    prioridad = 2;
+  }
+
+  if (distanciaCmDer < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmDer > UMBRAL_DE_DETECCION_TERCERO && distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_SEGUNDO) {
+    prioridad = 2;
+  }
+  
+
+  if (distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmDer < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_SEGUNDO) {
+    prioridad = 3;
+  }
+  
+
+  if (distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_PRIMERO) {
+    prioridad = 0;
+  }
+
+  if (distanciaCmDer < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_PRIMERO) {
+    prioridad = 0;
+  }
+  
+
+  if (distanciaCmIzq > UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_PRIMERO) {
+    prioridad = 4;
+  }
+  
 }
