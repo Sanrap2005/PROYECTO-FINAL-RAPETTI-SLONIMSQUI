@@ -24,6 +24,9 @@
 #define TFT_RED2 0xE042
 #define TFT_BLACK 0x0000
 #define TFT_ORANGE 0xFC60
+#define TFT_BROWN2 0xAAA2
+#define TFT_WHITE2 0xEF31
+
 
 #define TEXTO_INICIALIZACION_1 0
 #define TEXTO_INICIALIZACION_2 1
@@ -58,8 +61,8 @@
 
 TFT_eSPI tft = TFT_eSPI ();
 
-Adafruit_NeoPixel tiraDer = Adafruit_NeoPixel (8, 21, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel tiraIzq = Adafruit_NeoPixel (8, 19, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel tiraDer = Adafruit_NeoPixel (8, 32, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel tiraIzq = Adafruit_NeoPixel (8, 33, NEO_GRB + NEO_KHZ800);
 
 int duracionUsDer;
 int distanciaCmDer;
@@ -127,8 +130,6 @@ void setup() {
   tiraDer.begin();
   tiraIzq.begin();
 
-
-
   tiraDer.setBrightness(100);
   tiraIzq.setBrightness(100);
 
@@ -140,12 +141,13 @@ void setup() {
 
 void loop() {
 
-  // Serial.print("DERECHA: ");
-  // Serial.println(distanciaCmDer);
+  //Serial.print("DERECHA: ");
+  //Serial.println(distanciaCmDer);
 
-  // Serial.print("IZQUIERDA: ");
+  //Serial.print("IZQUIERDA: ");
   //Serial.println(distanciaCmIzq);
 
+  Serial.println(estadoMaquinaGeneral);
   maquinaDeEstadosGeneral ();
 
   maquinaDeEstadosDeteccionDerecha();
@@ -497,6 +499,7 @@ void maquinaDeEstadosGeneral () {
       }
 
       if (prioridad == 0) {
+
         if (distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_SEGUNDO) {
           buzzerPrimerUmbral();
         }
@@ -515,9 +518,11 @@ void maquinaDeEstadosGeneral () {
         if (distanciaCmDer < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmDer > UMBRAL_DE_DETECCION_TERCERO) {
           buzzerSegundoUmbral();
         }
+
         if (distanciaCmDer < UMBRAL_DE_DETECCION_TERCERO) {
           ledcWrite(BUZZER_CHANNEL, 128);
         }
+
       }
 
       if (prioridad == 1) {
@@ -550,7 +555,7 @@ void printeoOjo() {
 
   tft.fillEllipse(120, 270, 100, 35, TFT_WHITE); // Dibujo ojo
   tft.drawEllipse(120, 270, 100, 35, TFT_BLACK);
-  tft.fillCircle(120, 270, 35, TFT_WHITE);
+  tft.fillCircle(120, 270, 35, TFT_BROWN2);
   tft.drawCircle(120, 270, 35, TFT_BLACK);
   tft.fillCircle(120, 270, 15, TFT_BLACK);
   tft.fillCircle(128, 275, 4, TFT_WHITE);
@@ -829,7 +834,6 @@ void animacionLineaDer() {
 
 
 
-
 void estadoAmarilloDer() {
 
   tft.fillTriangle(240, 244, 240, 320, 175, 290, TFT_YELLOW2);
@@ -992,7 +996,7 @@ void buzzerTercerUmbral() {
 }
 
 void establecimientoPrioridades() {
-  
+
 
   if (distanciaCmIzq < UMBRAL_DE_DETECCION_TERCERO && distanciaCmDer < UMBRAL_DE_DETECCION_TERCERO) {
     prioridad = 1;
@@ -1026,12 +1030,12 @@ void establecimientoPrioridades() {
   if (distanciaCmDer < UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmDer > UMBRAL_DE_DETECCION_TERCERO && distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_SEGUNDO) {
     prioridad = 2;
   }
-  
+
 
   if (distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_SEGUNDO && distanciaCmDer < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_SEGUNDO) {
     prioridad = 3;
   }
-  
+
 
   if (distanciaCmIzq < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_PRIMERO) {
     prioridad = 0;
@@ -1040,10 +1044,10 @@ void establecimientoPrioridades() {
   if (distanciaCmDer < UMBRAL_DE_DETECCION_PRIMERO && distanciaCmIzq > UMBRAL_DE_DETECCION_PRIMERO) {
     prioridad = 0;
   }
-  
+
 
   if (distanciaCmIzq > UMBRAL_DE_DETECCION_PRIMERO && distanciaCmDer > UMBRAL_DE_DETECCION_PRIMERO) {
     prioridad = 4;
   }
-  
+
 }
