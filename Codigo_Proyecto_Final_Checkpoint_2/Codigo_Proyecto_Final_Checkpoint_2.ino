@@ -45,10 +45,10 @@
 #define TIEMPO_DE_ANIMACION 200 //Tiempo de duración de los dos estados del titileo, tanto para el indicador IZQ como el DER
 #define BAUD_RATE 115200
 
-#define TRIG_PIN_DER 25 // Pin 25 conectado al pin TRIG del sensor ultrasónico diestro.
+#define TRIG_PIN_DER 27 // Pin 25 conectado al pin TRIG del sensor ultrasónico diestro.
 #define ECHO_PIN_DER 26 // Pin 26 conectado al pin ECHO del sensor ultrasónico diestro.
 
-#define TRIG_PIN_IZQ 23 // Pin 23 conectado al pin TRIG del sensor ultrasónico zurdo.
+#define TRIG_PIN_IZQ 21 // Pin 23 conectado al pin TRIG del sensor ultrasónico zurdo.
 #define ECHO_PIN_IZQ 22 // Pin 22 conectado al pin ECHO del sensor ultrasónico zurdo.
 
 #define TRIGEO_ULTRASONICO_ON 0
@@ -62,7 +62,7 @@
 TFT_eSPI tft = TFT_eSPI ();
 
 Adafruit_NeoPixel tiraDer = Adafruit_NeoPixel (8, 32, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel tiraIzq = Adafruit_NeoPixel (8, 33, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel tiraIzq = Adafruit_NeoPixel (8, 5, NEO_GRB + NEO_KHZ800);
 
 int duracionUsDer;
 int distanciaCmDer;
