@@ -45,6 +45,12 @@
 #define TIEMPO_DE_ANIMACION 200 //Tiempo de duración de los dos estados del titileo, tanto para el indicador IZQ como el DER
 #define BAUD_RATE 115200
 
+//#define TRIG_PIN_DER 26 // Pin 25 conectado al pin TRIG del sensor ultrasónico diestro.
+//#define ECHO_PIN_DER 27 // Pin 26 conectado al pin ECHO del sensor ultrasónico diestro.
+
+//#define TRIG_PIN_IZQ 22 // Pin 23 conectado al pin TRIG del sensor ultrasónico zurdo.
+//#define ECHO_PIN_IZQ 21 // Pin 22 conectado al pin ECHO del sensor ultrasónico zurdo.
+
 #define TRIG_PIN_DER 27 // Pin 25 conectado al pin TRIG del sensor ultrasónico diestro.
 #define ECHO_PIN_DER 26 // Pin 26 conectado al pin ECHO del sensor ultrasónico diestro.
 
@@ -61,8 +67,8 @@
 
 TFT_eSPI tft = TFT_eSPI ();
 
-Adafruit_NeoPixel tiraDer = Adafruit_NeoPixel (8, 32, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel tiraIzq = Adafruit_NeoPixel (8, 5, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel tiraDer = Adafruit_NeoPixel (8, 5, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel tiraIzq = Adafruit_NeoPixel (8, 32, NEO_GRB + NEO_KHZ800);
 
 int duracionUsDer;
 int distanciaCmDer;
@@ -634,14 +640,14 @@ void printeoAuto() {
 
 void pintarPixelAmarilloDer() {
 
-  tiraDer.setPixelColor(0, 239, 239, 25);
-  tiraDer.setPixelColor(1, 239, 239, 25);
-  tiraDer.setPixelColor(2, 239, 239, 25);
-  tiraDer.setPixelColor(3, 239, 239, 25);
-  tiraDer.setPixelColor(4, 239, 239, 25);
-  tiraDer.setPixelColor(5, 239, 239, 25);
-  tiraDer.setPixelColor(6, 239, 239, 25);
-  tiraDer.setPixelColor(7, 239, 239, 25);
+  tiraDer.setPixelColor(0, 255, 179, 0);
+  tiraDer.setPixelColor(1, 255, 179, 0);
+  tiraDer.setPixelColor(2, 255, 179, 0);
+  tiraDer.setPixelColor(3, 255, 179, 0);
+  tiraDer.setPixelColor(4, 255, 179, 0);
+  tiraDer.setPixelColor(5, 255, 179, 0);
+  tiraDer.setPixelColor(6, 255, 179, 0);
+  tiraDer.setPixelColor(7, 255, 179, 0);
 
   tiraDer.show();
 
@@ -649,14 +655,14 @@ void pintarPixelAmarilloDer() {
 
 void pintarPixelNaranjaDer() {
 
-  tiraDer.setPixelColor(0, 255, 140, 0);
-  tiraDer.setPixelColor(1, 255, 140, 0);
-  tiraDer.setPixelColor(2, 255, 140, 0);
-  tiraDer.setPixelColor(3, 255, 140, 0);
-  tiraDer.setPixelColor(4, 255, 140, 0);
-  tiraDer.setPixelColor(5, 255, 140, 0);
-  tiraDer.setPixelColor(6, 255, 140, 0);
-  tiraDer.setPixelColor(7, 255, 140, 0);
+  tiraDer.setPixelColor(0, 255, 48, 0);
+  tiraDer.setPixelColor(1, 255, 48, 0);
+  tiraDer.setPixelColor(2, 255, 48, 0);
+  tiraDer.setPixelColor(3, 255, 48, 0);
+  tiraDer.setPixelColor(4, 255, 48, 0);
+  tiraDer.setPixelColor(5, 255, 48, 0);
+  tiraDer.setPixelColor(6, 255, 48, 0);
+  tiraDer.setPixelColor(7, 255, 48, 0);
 
   tiraDer.show();
 
@@ -664,14 +670,14 @@ void pintarPixelNaranjaDer() {
 
 void pintarPixelRojoDer() {
 
-  tiraDer.setPixelColor(0, 230, 8, 16);
-  tiraDer.setPixelColor(1, 230, 8, 16);
-  tiraDer.setPixelColor(2, 230, 8, 16);
-  tiraDer.setPixelColor(3, 230, 8, 16);
-  tiraDer.setPixelColor(4, 230, 8, 16);
-  tiraDer.setPixelColor(5, 230, 8, 16);
-  tiraDer.setPixelColor(6, 230, 8, 16);
-  tiraDer.setPixelColor(7, 230, 8, 16);
+  tiraDer.setPixelColor(0, 255, 0, 0);
+  tiraDer.setPixelColor(1, 255, 0, 0);
+  tiraDer.setPixelColor(2, 255, 0, 0);
+  tiraDer.setPixelColor(3, 255, 0, 0);
+  tiraDer.setPixelColor(4, 255, 0, 0);
+  tiraDer.setPixelColor(5, 255, 0, 0);
+  tiraDer.setPixelColor(6, 255, 0, 0);
+  tiraDer.setPixelColor(7, 255, 0, 0);
 
   tiraDer.show();
 
@@ -694,14 +700,14 @@ void pintarPixelNegroDer() {
 
 void pintarPixelAmarilloIzq() {
 
-  tiraIzq.setPixelColor(0, 239, 239, 25);
-  tiraIzq.setPixelColor(1, 239, 239, 25);
-  tiraIzq.setPixelColor(2, 239, 239, 25);
-  tiraIzq.setPixelColor(3, 239, 239, 25);
-  tiraIzq.setPixelColor(4, 239, 239, 25);
-  tiraIzq.setPixelColor(5, 239, 239, 25);
-  tiraIzq.setPixelColor(6, 239, 239, 25);
-  tiraIzq.setPixelColor(7, 239, 239, 25);
+  tiraIzq.setPixelColor(0, 255, 179, 0);
+  tiraIzq.setPixelColor(1, 255, 179, 0);
+  tiraIzq.setPixelColor(2, 255, 179, 0);
+  tiraIzq.setPixelColor(3, 255, 179, 0);
+  tiraIzq.setPixelColor(4, 255, 179, 0);
+  tiraIzq.setPixelColor(5, 255, 179, 0);
+  tiraIzq.setPixelColor(6, 255, 179, 0);
+  tiraIzq.setPixelColor(7, 255, 179, 0);
 
   tiraIzq.show();
 
@@ -709,14 +715,14 @@ void pintarPixelAmarilloIzq() {
 
 void pintarPixelNaranjaIzq() {
 
-  tiraIzq.setPixelColor(0, 255, 140, 0);
-  tiraIzq.setPixelColor(1, 255, 140, 0);
-  tiraIzq.setPixelColor(2, 255, 140, 0);
-  tiraIzq.setPixelColor(3, 255, 140, 0);
-  tiraIzq.setPixelColor(4, 255, 140, 0);
-  tiraIzq.setPixelColor(5, 255, 140, 0);
-  tiraIzq.setPixelColor(6, 255, 140, 0);
-  tiraIzq.setPixelColor(7, 255, 140, 0);
+  tiraIzq.setPixelColor(0, 255, 48, 0);
+  tiraIzq.setPixelColor(1, 255, 48, 0);
+  tiraIzq.setPixelColor(2, 255, 48, 0);
+  tiraIzq.setPixelColor(3, 255, 48, 0);
+  tiraIzq.setPixelColor(4, 255, 48, 0);
+  tiraIzq.setPixelColor(5, 255, 48, 0);
+  tiraIzq.setPixelColor(6, 255, 48, 0);
+  tiraIzq.setPixelColor(7, 255, 48, 0);
 
   tiraIzq.show();
 
@@ -724,14 +730,14 @@ void pintarPixelNaranjaIzq() {
 
 void pintarPixelRojoIzq() {
 
-  tiraIzq.setPixelColor(0, 230, 8, 16);
-  tiraIzq.setPixelColor(1, 230, 8, 16);
-  tiraIzq.setPixelColor(2, 230, 8, 16);
-  tiraIzq.setPixelColor(3, 230, 8, 16);
-  tiraIzq.setPixelColor(4, 230, 8, 16);
-  tiraIzq.setPixelColor(5, 230, 8, 16);
-  tiraIzq.setPixelColor(6, 230, 8, 16);
-  tiraIzq.setPixelColor(7, 230, 8, 16);
+  tiraIzq.setPixelColor(0, 255, 0, 0);
+  tiraIzq.setPixelColor(1, 255, 0, 0);
+  tiraIzq.setPixelColor(2, 255, 0, 0);
+  tiraIzq.setPixelColor(3, 255, 0, 0);
+  tiraIzq.setPixelColor(4, 255, 0, 0);
+  tiraIzq.setPixelColor(5, 255, 0, 0);
+  tiraIzq.setPixelColor(6, 255, 0, 0);
+  tiraIzq.setPixelColor(7, 255, 0, 0);
 
   tiraIzq.show();
 
