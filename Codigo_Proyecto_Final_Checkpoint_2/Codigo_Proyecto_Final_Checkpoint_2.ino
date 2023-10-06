@@ -38,9 +38,9 @@
 #define PRINTEO_AUTO 7
 #define COMPARACIONES_DATOS_UMBRAL 8
 
-#define UMBRAL_DE_DETECCION_PRIMERO 60 //Límite de distancia en centímetros
-#define UMBRAL_DE_DETECCION_SEGUNDO 40
-#define UMBRAL_DE_DETECCION_TERCERO 20
+#define UMBRAL_DE_DETECCION_PRIMERO 450 //Límite de distancia en centímetros
+#define UMBRAL_DE_DETECCION_SEGUNDO 200
+#define UMBRAL_DE_DETECCION_TERCERO 100
 
 #define TIEMPO_DE_ANIMACION 200 //Tiempo de duración de los dos estados del titileo, tanto para el indicador IZQ como el DER
 #define BAUD_RATE 115200
@@ -54,7 +54,7 @@
 #define TRIGEO_ULTRASONICO_ON 0
 #define MEDICION_Y_ENVIO 1
 
-#define INTERVALO_SENSOR 20000 // Frecuencia en unidad de microsegundos que va a trigear el sensor. En este caso, una vez cada 1o micros.
+#define INTERVALO_SENSOR 200000 // Frecuencia en unidad de microsegundos que va a trigear el sensor. En este caso, una vez cada 1o micros.
 
 #define BUZZER_PIN 13     // Pin del buzzer
 #define BUZZER_CHANNEL 0 // Canal PWM del buzzer
