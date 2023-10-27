@@ -4,7 +4,7 @@
 
   Autor: Ariel Slonimsqui
   Materia: Taller de Programación
-  Trabajo: Proyecto Final 4to Año Mecatrónica.
+  Trabajo: Proyecto Final 5to Año Mecatrónica.
 
   Descripción:
   Utilizando dos sensores ultrasónicos, se calcula y mide la distancia en centímetros, y en base a estas mediciones se producen algunas animaciones en la pantalla.
@@ -48,8 +48,8 @@
 #define TRIG_PIN_DER 26 // Pin 25 conectado al pin TRIG del sensor ultrasónico diestro.
 #define ECHO_PIN_DER 27 // Pin 26 conectado al pin ECHO del sensor ultrasónico diestro.
 
-#define TRIG_PIN_IZQ 22 // Pin 23 conectado al pin TRIG del sensor ultrasónico zurdo.
-#define ECHO_PIN_IZQ 21 // Pin 22 conectado al pin ECHO del sensor ultrasónico zurdo.
+#define TRIG_PIN_IZQ 21 // Pin 23 conectado al pin TRIG del sensor ultrasónico zurdo.
+#define ECHO_PIN_IZQ 22 // Pin 22 conectado al pin ECHO del sensor ultrasónico zurdo.
 
 #define TRIGEO_ULTRASONICO_ON 0
 #define MEDICION_Y_ENVIO 1
@@ -61,8 +61,8 @@
 
 TFT_eSPI tft = TFT_eSPI ();
 
-Adafruit_NeoPixel tiraDer = Adafruit_NeoPixel (8, 5, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel tiraIzq = Adafruit_NeoPixel (8, 32, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel tiraDer = Adafruit_NeoPixel (8, 32, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel tiraIzq = Adafruit_NeoPixel (8, 5, NEO_GRB + NEO_KHZ800);
 
 int duracionUsDer;
 int distanciaCmDer;
@@ -132,6 +132,9 @@ void setup() {
 
   tiraDer.setBrightness(100);
   tiraIzq.setBrightness(100);
+
+  pintarPixelNegroDer();
+  pintarPixelNegroIzq();
 
   ledcSetup(BUZZER_CHANNEL, 2000, 8); // Configurar el canal PWM
   ledcAttachPin(BUZZER_PIN, BUZZER_CHANNEL); // Asociar el pin al canal PWM
